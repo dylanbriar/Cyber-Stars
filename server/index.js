@@ -6,6 +6,7 @@ import { dirname } from 'path';
 import apiController from './apiController.js';
 import cookieParser from 'cookie-parser';
 import authController from './authController.js';
+import dbController from './dbController.js';
 
 const app = express();
 const port = 8080;
@@ -22,31 +23,30 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/hello', (req, res) => {
-	console.log('world');
-	return res.status(200).send({ message: 'world' });
-});
-
 //add in auth for sign in
 app.post('/', authController.setCookie, (req, res) => {
-	return res.status(302).redirect('/home');
+  return res.status(302).redirect('/home');
 });
+
+app.put('/user', dbController.addUser, (req, res) => {
+  return res.status(201).json(res.locals.user);
+})	
 
 //add in auth to verify user
 app.get('/home', authController.verifyUser, (req, res) => {
-	return res.sendFile(path.join(__dirname, '../index.html'));
+  return res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // returns a link to an image, a rightAnswer and three wrong answers
-app.get(
-	'/game',
-	apiController.getImageAndAnswer,
-	apiController.getOptions,
-	(req, res) => {
-		return res.status(200).json(res.locals);
-	}
+app.get('/game', apiController.getImageAndAnswer, apiController.getOptions, (req, res) => {
+  return res.status(200).json(res.locals);
+  }
 );
 
+app.put('/gallery', dbController.addFavoritePicture, (req, res) => {
+	return res.status(201).json({ favoritePicture: res.locals.favoritePicture });
+});
+  
 // 404 handler (not really working)
 app.use('*', (req, res) =>
 	res.status(404).send('404 - This planet is in another galaxy!')
