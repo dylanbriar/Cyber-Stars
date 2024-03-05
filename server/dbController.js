@@ -49,20 +49,20 @@ dbController.addUser = async (req, res, next) => {
   }  
 }
 
-dbController.addFavoritePicture = async (req, res, next) => {
+dbController.addToGallery = async (req, res, next) => {
   // deconstruct the necessary data
   const { userId, pictureLink, pictureDate, title, description } = req.body;
   try {    
     const result = await pool.query(
-      'INSERT INTO favorite_pictures(user_id, picture_link, picture_date, title, description) VALUES($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO gallery(user_id, picture_link, picture_date, title, description) VALUES($1, $2, $3, $4, $5) RETURNING *',
       [userId, pictureLink, pictureDate, title, description]
     );
-    res.locals.addFavoritePicture = result.rows[0];
+    res.locals.addedPicture = result.rows[0];
     return next();
   } // if there was problem adding the picture to gallery
   catch (err) {
     return next({
-      log: `Problem in dbController.addFavoritePicture: ${err}`,
+      log: `Problem in dbController.addToGallery: ${err}`,
       status: 400,
       message: `An error occurred: ${err.message}`
     });

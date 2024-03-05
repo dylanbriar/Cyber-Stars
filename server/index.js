@@ -43,8 +43,8 @@ app.get('/game', apiController.getImageAndAnswer, apiController.getOptions, (req
   }
 );
 
-app.put('/gallery', dbController.addFavoritePicture, (req, res) => {
-	return res.status(201).json({ favoritePicture: res.locals.favoritePicture });
+app.put('/gallery', dbController.addToGallery, (req, res) => {
+	return res.status(201).json({ addedPicture: res.locals.addedPicture });
 });
   
 // 404 handler (not really working)
