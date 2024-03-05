@@ -1,6 +1,6 @@
 import pg from 'pg';
 import 'dotenv/config';
-import bcrypt from 'bcyrpt';
+import bcrypt from 'bcrypt';
 
 const { Pool } = pg;
 
@@ -25,6 +25,7 @@ dbController.addUser = async (req, res, next) => {
       'INSERT INTO users(username, email, password) VALUES($1, $2, $3) RETURNING *',
       [username, email, hashedPassword]
     );
+    // this also returns the hashes password as of right now. refactor?
     res.locals.user = result.rows[0];
     return next();
   } // if failed: send error to global error handler
