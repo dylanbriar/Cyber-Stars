@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm/LoginForm.jsx';
-import RegisterForm from './components/LoginForm/RegisterForm/RegisterForm.jsx';
+import RegisterForm from './components/RegisterForm/RegisterForm.jsx';
 
 function App() {
   const [showLoginForm, setShowLoginForm] = useState(true);
