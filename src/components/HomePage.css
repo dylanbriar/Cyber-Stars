@@ -1,0 +1,20 @@
+.navbar {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around; /* Or any other spacing method you prefer */
+}
+
+.navbar li {
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+}
+
+.options div {
+  margin-right: 10px; /* Adjust as needed */
+}
