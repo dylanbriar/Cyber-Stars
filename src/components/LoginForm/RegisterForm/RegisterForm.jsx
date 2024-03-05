@@ -1,13 +1,14 @@
+// RegisterForm.jsx
 import React, { useState } from 'react';
 import './RegisterForm.css';
-import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
-import LoginForm from '../LoginForm'; // Import the LoginForm component
+import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 
-const RegisterForm = () => {
+const RegisterForm = ({ setShowRegisterForm }) => {
   const [showLoginForm, setShowLoginForm] = useState(false);
 
   const handleLoginClick = () => {
     setShowLoginForm(true);
+    setShowRegisterForm(false); // Hide the RegisterForm
   };
 
   const handleRegisterFormSubmit = (e) => {
@@ -42,11 +43,16 @@ const RegisterForm = () => {
 
         </form>
       ) : (
-        <LoginForm /> // Render LoginForm component if showLoginForm is true
+        // You may render a LoginForm component or any other content here
+        <div>
+          <h1>Login Form</h1>
+          {/* Add LoginForm content here */}
+        </div>
       )}
     </div>
   )
 }
 
 export default RegisterForm;
+
 
