@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Archive } from './Archive';
-import { Gallery } from './Gallery';
+import Gallery from './Gallery';
 
 export const Today = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -8,6 +8,7 @@ export const Today = () => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [questionData, setQuestionData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
 
   useEffect(() => {
     if (selectedOption === '' || selectedOption === 'today') {
@@ -40,6 +41,10 @@ export const Today = () => {
     const correctOption = questionData.rightAnswer;
     setIsCorrect(selectedOption === correctOption);
     setIsAnswered(true);
+    if (selectedOption === correctOption) {
+      setCorrectAnswers([...correctAnswers, questionData]);
+    }
+    setSelectedOption(''); // Reset selectedOption after submission
   };
 
   const handleOptionSelect = (option) => {
@@ -108,6 +113,7 @@ export const Today = () => {
     </div>
   );
 };
+
 
 
 
