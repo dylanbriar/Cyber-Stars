@@ -1,16 +1,24 @@
-import './App.css'
-import HomePage from './components/LoginForm/HomePage.jsx'
-import LoginForm from './components/LoginForm/LoginForm.jsx'
-
+import React, { useState } from 'react';
+import './App.css';
+import LoginForm from './components/LoginForm/LoginForm.jsx';
+import RegisterForm from './components/RegisterForm/RegisterForm.jsx';
 
 function App() {
+  const [showLoginForm, setShowLoginForm] = useState(true);
+
+  const toggleForm = () => {
+    setShowLoginForm(!showLoginForm);
+  };
 
   return (
-    <>
-      <LoginForm />
-      {/* <HomePage /> */}
-    </>
-  )
+    <div className="App">
+      {showLoginForm ? (
+        <LoginForm onToggleForm={toggleForm} />
+      ) : (
+        <RegisterForm onToggleForm={toggleForm} />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
