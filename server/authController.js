@@ -19,7 +19,7 @@ authController.verifyUser = (req, res, next) => {
   //destructure token from req.cookies?
   console.log(cookies);
   if (cookies['token'] !== 'spaceCadet' || cookies['token'] === 'otherUser') {
-    res.send('You must be signed in to view this page');
+    return res.send('You must be signed in to view this page');
   }
   return next();
 };
