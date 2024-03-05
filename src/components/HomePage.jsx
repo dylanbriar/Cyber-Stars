@@ -1,13 +1,12 @@
-// HomePage.jsx
 import React, { useState } from 'react';
 import { Archive } from './Archive';
 import { Gallery } from './Gallery';
+import './HomePage.css';
 
 const HomePage = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [showArchive, setShowArchive] = useState(false);
 
   // Placeholder options (you can replace these with actual options from NASA API)
   const options = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
@@ -22,6 +21,8 @@ const HomePage = () => {
       setIsCorrect(false);
     }
     setIsAnswered(true);
+    // Call a function here to send the selected option to the backend
+    // Example: sendOptionToBackend(selectedOption);
   };
 
   // Function to handle option selection
@@ -29,28 +30,29 @@ const HomePage = () => {
     setSelectedOption(option);
   };
 
-  // Function to toggle showing Archive component
-  const toggleArchive = () => {
-    setShowArchive(!showArchive);
-  };
-
   return (
     <div>
       {/* Navbar */}
       <nav>
-        <ul>
-          <li><button onClick={toggleArchive}>My Gallery</button></li>
-          <li><button>Today</button></li>
-          <li><button>Archive</button></li>
+        <ul className="navbar">
+          <li><button onClick={() => setSelectedOption('')}>Today</button></li>
+          <li><button onClick={() => setSelectedOption('gallery')}>My Gallery</button></li>
+          <li><button onClick={() => setSelectedOption('archive')}>Archive</button></li>
         </ul>
       </nav>
+      {/* Render h1 */}
       <div className="box">
-        <h1>Home Page</h1>
+        <h1>Show Image in Box Here</h1>
       </div>
-      {!showArchive ? (
+      {/* Render Gallery component */}
+      {selectedOption === 'gallery' && <Gallery />}
+      {/* Render Archive component */}
+      {selectedOption === 'archive' && <Archive />}
+      {/* Render options and submit button when the "Today" selection is active */}
+      {selectedOption === '' && (
         <div>
-          <div>
-            {/* Display options */}
+          {/* Display options horizontally */}
+          <div className="options">
             {options.map((option, index) => (
               <div key={index}>
                 <input
@@ -67,20 +69,25 @@ const HomePage = () => {
           </div>
           {/* Display submit button */}
           <button onClick={handleSubmit}>Submit</button>
-          {/* Render appropriate component based on answer */}
-          {/* {isAnswered && isCorrect ? (
-            <CorrectAnswerComponent />
-          ) : isAnswered && !isCorrect ? (
-            <IncorrectAnswerComponent />
-          ) : null} */}
         </div>
-      ) : (
-        <Gallery />
+      )}
+      {/* Render submit button only when an option is selected */}
+      {selectedOption !== '' && !isAnswered && (
+        <button onClick={handleSubmit}>Submit</button>
       )}
     </div>
   );
 };
 
 export default HomePage;
+
+
+
+
+
+
+
+
+
 
 

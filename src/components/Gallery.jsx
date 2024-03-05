@@ -1,4 +1,3 @@
-// Gallery.jsx
 import React from 'react';
 
 export const Gallery = () => {

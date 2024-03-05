@@ -1,25 +1,33 @@
-// Archive.jsx
 import React, { useState } from 'react';
 
 export const Archive = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-  // Add logic to fetch available years, months, and dates
+
+  // Generate years from 2015 to current year
+  const years = [];
+  const currentYear = new Date().getFullYear();
+  for (let year = 2015; year <= currentYear; year++) {
+    years.push(year);
+  }
+
+  // Generate months from January to December
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+
+  // Generate dates from 1 to 31
+  const dates = Array.from({ length: 31 }, (_, i) => i + 1);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
-    // Fetch months based on selected year
   };
 
   const handleMonthChange = (e) => {
     setSelectedMonth(e.target.value);
-    // Fetch dates based on selected year and month
   };
 
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
-    // Fetch picture for selected year, month, and date
   };
 
   const handleSubmit = (e) => {
@@ -33,18 +41,37 @@ export const Archive = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Year:
-          <input type="text" value={selectedYear} onChange={handleYearChange} />
+          <select value={selectedYear} onChange={handleYearChange}>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           Month:
-          <input type="text" value={selectedMonth} onChange={handleMonthChange} />
+          <select value={selectedMonth} onChange={handleMonthChange}>
+            {months.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           Date:
-          <input type="text" value={selectedDate} onChange={handleDateChange} />
+          <select value={selectedDate} onChange={handleDateChange}>
+            {dates.map((date) => (
+              <option key={date} value={date}>
+                {date}
+              </option>
+            ))}
+          </select>
         </label>
-        <button type="submit">Go to Archive</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
+
