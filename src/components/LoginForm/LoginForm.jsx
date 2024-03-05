@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
 import { FaUser, FaLock } from 'react-icons/fa';
-import RegisterForm from './RegisterForm/RegisterForm';
+import RegisterForm from '../RegisterForm/RegisterForm.jsx';
 
 const LoginForm = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
