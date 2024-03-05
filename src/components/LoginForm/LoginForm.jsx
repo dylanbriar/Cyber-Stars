@@ -1,8 +1,8 @@
+// LoginForm.jsx
 import React, { useState } from 'react';
 import './LoginForm.css';
-import { FaUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import RegisterForm from "./RegisterForm/RegisterForm.jsx"
+import { FaUser, FaLock } from 'react-icons/fa';
+import RegisterForm from './RegisterForm/RegisterForm';
 
 const LoginForm = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -44,10 +44,11 @@ const LoginForm = () => {
 
         </form>
       ) : (
-        <RegisterForm />
+        <RegisterForm setShowRegisterForm={setShowRegisterForm} />
       )}
     </div>
   )
 }
 
 export default LoginForm;
+
