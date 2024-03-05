@@ -59,7 +59,7 @@ export const Today = () => {
       {isLoading && <p>Loading...</p>}
       {questionData && (
         <div className="box">
-          <img src={questionData.imageUrl} alt="NASA" style={{ width: '300px', height: '300px' }} />
+          <img src={questionData.imageUrl} alt="NASA" style={{ width: '400px', height: '400px' }} />
           <div className="options">
             <div>
               <input
@@ -107,7 +107,7 @@ export const Today = () => {
             </div>
           </div>
           <button onClick={handleSubmit}>Submit</button>
-          {isAnswered && <p>{isCorrect ? 'Correct!' : 'Incorrect!'}</p>}
+          {isAnswered && <p>{isCorrect ? 'The Eagle has landed! See you tomorrow!' : 'Houston we have a problem! Try again tomorrow!'}</p>}
         </div>
       )}
     </div>
