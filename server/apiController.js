@@ -1,6 +1,7 @@
 //example http request https://api.nasa.gov/planetary/apod?date=2024-03-02&api_key=hYRkkhJCfl5dL7i00EB74UeqpgUqV3RH5Pgn6qPJ
 //grab api key
 import 'dotenv/config';
+import fetch from 'node-fetch';
 const apiKey = process.env.API_KEY
 
 //initialize apiController object to export
@@ -8,15 +9,15 @@ const apiController = {};
 
 //get an image to display (for both home and archive)
 apiController.getImageAndAnswer = (req, res, next) => {
-  const date = req.body; //should look like YYYY-MM-DD
+  const date = req.body.date ? req.body.date : new Date().toISOString().substring(0,10);
   fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${apiKey}`)
     .then(res => res.json())
     //send back the image url for source and the title for the answer
     .then(data => {
       res.locals.imageUrl = data.hdurl;
       res.locals.rightAnswer = data.title;
-    })
-    .then(next())
+      return next();
+    })    
     .catch(err => next({
       log: `Problem in api controller get function: ${err}`,
       status: 404,
@@ -50,8 +51,9 @@ apiController.getOptions = (req, res, next) => {
       res.locals.firstOption = data[firstRandomIndex].title;
       res.locals.secondOption = data[secondRandomIndex].title;
       res.locals.thirdOption = data[thirdRandomIndex].title;
-    })
-    // .then(next())
+      console.log(JSON.stringify(res.locals));
+      return next();
+    })    
     .catch(err => next({
       log: `Problem in api controller get function: ${err}`,
       status: 404,
