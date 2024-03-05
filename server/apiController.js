@@ -7,8 +7,8 @@ const apiKey = process.env.API_KEY
 const apiController = {};
 
 //get an image to display (for both home and archive)
-apiController.getImage = (req, res, next) => {
-  const date = req.body;
+apiController.getImageAndAnswer = (req, res, next) => {
+  const date = req.body; //should look like YYYY-MM-DD
   fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${apiKey}`)
     .then(res => res.json())
     //send back the image url for source and the title for the answer
@@ -58,3 +58,5 @@ apiController.getOptions = (req, res, next) => {
       message: `An error occured: ${err}`
     }))
 }
+
+export default apiController;
