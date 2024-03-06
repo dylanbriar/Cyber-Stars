@@ -5,6 +5,10 @@ export const Archive = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
 
+  const padZero = (num) => {
+    return num < 10 ? '0' + num : num;
+  };
+
   // Generate years from 2015 to current year
   const years = [];
   const currentYear = new Date().getFullYear();
@@ -12,11 +16,11 @@ export const Archive = () => {
     years.push(year);
   }
 
-  // Generate months from January to December
-  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  // Generate months from 01 to 12
+  const months = Array.from({ length: 12 }, (_, i) => padZero(i + 1));
 
-  // Generate dates from 1 to 31
-  const dates = Array.from({ length: 31 }, (_, i) => i + 1);
+  // Generate dates from 01 to 31
+  const dates = Array.from({ length: 31 }, (_, i) => padZero(i + 1));
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -74,4 +78,7 @@ export const Archive = () => {
     </div>
   );
 };
+
+
+
 
