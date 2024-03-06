@@ -4,11 +4,12 @@ import bcrypt from 'bcrypt';
 
 const { Pool } = pg;
 
-// create a new pool here using the connection string above
-const pool = new Pool({
+// create and export new pool here using the connection string above
+export const pool = new Pool({
   connectionString: process.env.DB_URI
 });
 
+// create a controller to later export
 const dbController = {};
 
 // creates a new user and returns the query's response 
