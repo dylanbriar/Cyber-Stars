@@ -1,6 +1,6 @@
 import React from 'react';
 import { Archive } from './Archive';
-import { Gallery } from './Gallery';
+import Gallery from './Gallery';
 import { Today } from './Today';
 
 const MainContainer = ({ activeButton }) => {

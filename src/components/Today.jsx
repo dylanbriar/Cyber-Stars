@@ -44,13 +44,23 @@ export const Today = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check if the selected option is correct
     const correctOption = questionData.rightAnswer;
     setIsCorrect(selectedOption === correctOption);
     setIsAnswered(true);
     if (selectedOption === correctOption) {
       setCorrectAnswers([...correctAnswers, questionData]);
+      await fetch('http://localhost:8080/gallery', {
+        method: 'PUT',
+        headers: 'application/json',
+        body: JSON.stringify({
+          pictureLink: questionData.imageUrl,
+          pictureDate: questionData.date, 
+          title: questionData.rightAnswer,
+          description: questionData.description
+        })
+      })
     }
     setSelectedOption(''); // Reset selectedOption after submission
   };

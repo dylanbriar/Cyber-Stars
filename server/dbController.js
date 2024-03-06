@@ -51,15 +51,39 @@ dbController.addUser = async (req, res, next) => {
 }
 
 dbController.addToGallery = async (req, res, next) => {
-  // deconstruct the necessary data
-  const { userId, pictureLink, pictureDate, title, description } = req.body;
-  try {    
-    const result = await pool.query(
+  const { pictureLink, pictureDate, title, description } = req.body;
+  const username = req.cookies.token;
+  try {
+    // First, get the user ID based on the username
+    const userResult = await pool.query('SELECT id FROM users WHERE username = $1', [username]);
+    if (userResult.rows.length === 0) {
+      throw new Error('User not found');
+    }
+    const userId = userResult.rows[0].id;
+    // Then, insert into the gallery
+    const galleryResult = await pool.query(
       'INSERT INTO gallery(user_id, picture_link, picture_date, title, description) VALUES($1, $2, $3, $4, $5) RETURNING *',
       [userId, pictureLink, pictureDate, title, description]
     );
-    res.locals.addedPicture = result.rows[0];
+    res.locals.addedPicture = galleryResult.rows[0];
     return next();
+  } catch (err) {
+    return next({
+      log: `Error in dbController.addToGallery: ${err}`,
+      status: 400,
+      message: `An error occurred: ${err.message}`
+    });
+  }
+}
+
+dbController.retrieveGallery = async (req, res, next) => {
+  try {    
+    const username = req.cookies.token;
+    const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+    
+    res.locals.pictures = result.rows;
+    console.log(res.locals.pictures);
+    
   } // if there was problem adding the picture to gallery
   catch (err) {
     return next({
