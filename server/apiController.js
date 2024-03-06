@@ -2,7 +2,7 @@
 //grab api key
 import 'dotenv/config';
 import fetch from 'node-fetch';
-const apiKey = process.env.API_KEY
+const apiKey = process.env.API_KEY;
 
 //initialize apiController object to export
 const apiController = {};

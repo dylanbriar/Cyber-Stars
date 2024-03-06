@@ -21,7 +21,7 @@ const LoginForm = () => {
 		console.log('formData',formData);
 		const body = JSON.stringify(formData);
 
-		await fetch('http://localhost:8080', {
+		const response = await fetch('http://localhost:8080/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -29,6 +29,11 @@ const LoginForm = () => {
 			body,
 			credentials: 'include',
 		});
+		if(response.ok) {
+			window.location.href = '/game';
+		} else {			
+			alert('Login failed'); //will refactor
+		}
 	};
 
 	const handleInputChange = (e) => {
