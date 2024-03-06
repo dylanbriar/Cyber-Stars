@@ -21,6 +21,7 @@ authController.login = async (req, res, next) => {
 			if(match) {
 				// move on to next middleware function (setCookie)				
 				res.locals.cookie = username;
+				//console.log('cookie:',res.locals.cookie)
 				return next();
 			}
 		}
@@ -57,7 +58,7 @@ authController.verifyUser = (req, res, next) => {
 	const { cookies } = req;
 	//destructure token from req.cookies?
 	console.log('cookie: ',cookies);
-	if (cookies['token'] !== 'spaceCadet' || cookies['token'] === 'otherUser') {
+	if (!cookies['token']) {
 		return res.send('You must be signed in to view this page');
 	}
 	return next();
