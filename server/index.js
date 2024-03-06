@@ -67,6 +67,10 @@ app.put('/gallery', dbController.addToGallery, (req, res) => {
 	return res.status(201).json({ addedPicture: res.locals.addedPicture });
 });
 
+app.get('/gallery', dbController.retrieveGallery, (req, res) => {
+	return res.status(200).json(res.locals.pictures);
+});
+
 // 404 handler (not really working)
 app.use('*', (req, res) =>
 	res.status(404).send('404 - This planet is in another galaxy!')

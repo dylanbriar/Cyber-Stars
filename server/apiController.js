@@ -18,6 +18,9 @@ apiController.getImageAndAnswer = (req, res, next) => {
       res.locals.imageUrl = data.hdurl;
       res.locals.rightAnswer = data.title;
       res.locals.description = data.explanation;
+      res.locals.date = data.date;
+      console.log('title', data.title)
+
       return next();
     })    
     .catch(err => next({
