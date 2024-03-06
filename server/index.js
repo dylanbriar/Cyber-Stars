@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
 import apiController from './apiController.js';
 import cookieParser from 'cookie-parser';
 import authController from './authController.js';
@@ -10,8 +10,8 @@ import dbController from './dbController.js';
 
 const app = express();
 const port = 8080;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 // configure cors, json parsing and url encoding
 const whitelist = ['http://localhost:5173', 'http://localhost:8080'];
