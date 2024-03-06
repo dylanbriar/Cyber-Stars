@@ -12,20 +12,19 @@ const Layout = () => {
   )
 }
 
-const NotFound = () => <h1>404 Page Not Found</h1>;
+const NotFound = () => <h1>404 - This planet is in another galaxy!</h1>;
 
 function App() {
-  // const [showLoginForm, setShowLoginForm] = useState(true);
-
-  // const toggleForm = () => {
-  //   setShowLoginForm(!showLoginForm);
-  // };
+  const [showLoginForm, setShowLoginForm] = useState(true);
+  const toggleForm = () => {
+    setShowLoginForm(!showLoginForm);
+  };
 
   return (
     <div>
       <Routes>
         <Route>
-          <Route path='/' element={<Layout/>} />
+          <Route path='/login' element={<Layout/>} />
           <Route index element={<LoginForm />} />
           <Route path='/game' element={<HomePage />} />
           <Route path='*' element={<NotFound/>} />

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import './LoginForm.css';
 import { FaUser, FaLock } from 'react-icons/fa';
 import RegisterForm from '../RegisterForm/RegisterForm.jsx';
-import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
 	const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -22,7 +21,7 @@ const LoginForm = () => {
 		console.log('formData',formData);
 		const body = JSON.stringify(formData);
 
-		await fetch('http://localhost:8080', {
+		const response = await fetch('http://localhost:8080/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -30,6 +29,11 @@ const LoginForm = () => {
 			body,
 			credentials: 'include',
 		});
+		if(response.ok) {
+			window.location.href = '/game';
+		} else {			
+			alert('Login failed'); //will refactor
+		}
 	};
 
 	const handleInputChange = (e) => {
@@ -73,9 +77,7 @@ const LoginForm = () => {
 						<a href='#'>Forgot Password?</a>
 					</div>
 
-					<button type='submit'>
-						<Link to='/game'>Login</Link>
-					</button>
+					<button type='submit'>Login</button>
 
 					<div className='register-link'>
 						<p>

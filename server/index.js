@@ -36,7 +36,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, '../index.html')));
 
 //add in auth for sign in
-app.post('/', authController.login, authController.setCookie, (req, res) => {
+app.post('/login', authController.login, authController.setCookie, (req, res) => {
 	console.log('entered post to root');
 	console.log(res.locals.cookie);
 	return res.status(200).send('Cookie has been set!')
