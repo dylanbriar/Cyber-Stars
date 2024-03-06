@@ -9,6 +9,7 @@ export const Today = () => {
   const [questionData, setQuestionData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
 
   useEffect(() => {
     if (selectedOption === '' || selectedOption === 'today') {
@@ -18,6 +19,13 @@ export const Today = () => {
       }
     }
   }, [selectedOption]);
+
+  useEffect(() => {
+    // Shuffle the options when questionData changes
+    if (questionData) {
+      shuffleOptions();
+    }
+  }, [questionData]);
 
   const fetchQuestionData = async () => {
     try {
@@ -54,6 +62,25 @@ export const Today = () => {
     }
   };
 
+  const shuffleOptions = () => {
+    const options = [
+      questionData.firstOption,
+      questionData.secondOption,
+      questionData.thirdOption,
+      questionData.rightAnswer
+    ];
+    setShuffledOptions(shuffleArray(options));
+  };
+
+  // Function to shuffle array
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   return (
     <div>
       {isLoading && <p>Loading...</p>}
@@ -61,50 +88,19 @@ export const Today = () => {
         <div className="box">
           <img src={questionData.imageUrl} alt="NASA" style={{ width: '400px', height: '400px' }} />
           <div className="options">
-            <div>
-              <input
-                type="radio"
-                id="option-1"
-                name="options"
-                value={questionData.firstOption}
-                checked={selectedOption === questionData.firstOption}
-                onChange={() => handleOptionSelect(questionData.firstOption)}
-              />
-              <label htmlFor="option-1">{questionData.firstOption}</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="option-2"
-                name="options"
-                value={questionData.secondOption}
-                checked={selectedOption === questionData.secondOption}
-                onChange={() => handleOptionSelect(questionData.secondOption)}
-              />
-              <label htmlFor="option-2">{questionData.secondOption}</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="option-3"
-                name="options"
-                value={questionData.thirdOption}
-                checked={selectedOption === questionData.thirdOption}
-                onChange={() => handleOptionSelect(questionData.thirdOption)}
-              />
-              <label htmlFor="option-3">{questionData.thirdOption}</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="option-4"
-                name="options"
-                value={questionData.rightAnswer}
-                checked={selectedOption === questionData.rightAnswer}
-                onChange={() => handleOptionSelect(questionData.rightAnswer)}
-              />
-              <label htmlFor="option-4">{questionData.rightAnswer}</label>
-            </div>
+            {shuffledOptions.map((option, index) => (
+              <div key={index}>
+                <input
+                  type="radio"
+                  id={`option-${index}`}
+                  name="options"
+                  value={option}
+                  checked={selectedOption === option}
+                  onChange={() => handleOptionSelect(option)}
+                />
+                <label htmlFor={`option-${index}`}>{option}</label>
+              </div>
+            ))}
           </div>
           <button onClick={handleSubmit}>Submit</button>
           {isAnswered && <p>{isCorrect ? 'The Eagle has landed! See you tomorrow!' : 'Houston we have a problem! Try again tomorrow!'}</p>}
@@ -113,6 +109,8 @@ export const Today = () => {
     </div>
   );
 };
+
+
 
 
 
