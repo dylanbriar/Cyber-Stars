@@ -53,7 +53,7 @@ app.put('/user', dbController.addUser, (req, res) => {
 // });
 
 // returns a link to an image, a rightAnswer and three wrong answers
-app.get(
+app.use(
 	'/game',
 	authController.verifyUser,
 	apiController.getImageAndAnswer,
