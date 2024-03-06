@@ -9,13 +9,16 @@ const apiController = {};
 
 //get an image to display (for both home and archive)
 apiController.getImageAndAnswer = (req, res, next) => {
+  console.log('req.body.date:',req.body.date);
   const date = req.body.date ? req.body.date : new Date().toISOString().substring(0,10);
+  console.log('date:',date);
   fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${apiKey}`)
     .then(res => res.json())
     //send back the image url for source and the title for the answer
     .then(data => {
       res.locals.imageUrl = data.hdurl;
       res.locals.rightAnswer = data.title;
+      console.log('title', data.title)
       return next();
     })    
     .catch(err => next({
@@ -38,6 +41,7 @@ apiController.getOptions = (req, res, next) => {
   //set the range; this is getting the range of one month
   const start_date = `${randomYear}-${startMonth}-${randomDay}`
   const end_date= `${randomYear}-${startMonth + 1}-${randomDay}`
+  console.log('start date:',start_date,'--- end date:',end_date)
   //fetch the whole range
   fetch(`https://api.nasa.gov/planetary/apod?start_date=${start_date}&end_date=${end_date}&api_key=${apiKey}`)
     .then(res => res.json())

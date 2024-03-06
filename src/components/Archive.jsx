@@ -37,7 +37,7 @@ export const Archive = () => {
 
   return (
     <div>
-      <h2>Archive</h2>
+      <h2>Traveling through Space and Time...</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Year:
