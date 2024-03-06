@@ -58,9 +58,9 @@ authController.verifyUser = (req, res, next) => {
 	const { cookies } = req;
 	//destructure token from req.cookies?
 	console.log('cookie: ',cookies);
-	if (!cookies['token']) {
-		return res.send('You must be signed in to view this page');
-	}
+	// if (!cookies['token']) {
+	// 	return res.send('You must be signed in to view this page');
+	// }
 	return next();
 };
 
