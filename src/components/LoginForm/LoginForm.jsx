@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './LoginForm.css';
 import { FaUser, FaLock } from 'react-icons/fa';
 import RegisterForm from '../RegisterForm/RegisterForm.jsx';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
 	const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -72,7 +73,9 @@ const LoginForm = () => {
 						<a href='#'>Forgot Password?</a>
 					</div>
 
-					<button type='submit'>Login</button>
+					<button type='submit'>
+						<Link to='/game'>Login</Link>
+					</button>
 
 					<div className='register-link'>
 						<p>
