@@ -14,11 +14,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // configure cors, json parsing and url encoding
-const whitelist = ['http://localhost:5173', 'http://localhost:8080'];
+const whitelist = ['http://localhost:5173','http://localhost:8080'];
 const corsOptions = {
 	origin: function (origin, callback) {
 		console.log('origin', origin);
-		if (whitelist.indexOf(origin) !== -1) {
+		if (!origin || whitelist.indexOf(origin) !== -1) {
 			callback(null, true);
 		} else {
 			callback(new Error('Not allowed by CORS'));
